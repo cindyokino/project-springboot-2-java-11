@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "tb_user")
 public class User implements Serializable {
@@ -24,6 +26,7 @@ public class User implements Serializable {
 	private String phone;
 	private String password;
 	
+	@JsonIgnore //para nao acontecer o looping infinito (pois user chama order e order chama user)
 	@OneToMany(mappedBy = "client") //um usuario pode ter varias orders (ver diagrama)
 	private List<Order> orders = new ArrayList<>(); //ASSOCIACOES: um User tem varias Orders
 	
