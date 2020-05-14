@@ -65,7 +65,7 @@ public class Order implements Serializable {
 
 	public void setOrderStatus(OrderStatus orderStatus) {
 		if (orderStatus != null) {
-		this.orderStatus = orderStatus.getCode(); //pega um OrserStatus e converte para um numero Inteiro
+		this.orderStatus = orderStatus.getCode(); //pega um OrderStatus e converte para um numero Inteiro
 		}
 	}
 
