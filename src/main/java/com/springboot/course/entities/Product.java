@@ -8,8 +8,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name = "tb_product")
@@ -26,7 +28,8 @@ public class Product implements Serializable {
 	private String imgUrl;
 	
 	//associacoes - colecao Set
-	@Transient
+	@ManyToMany //a anotacao seguinte pode ser feita aqui ou na classe Category (em 1 das 2 classes associadas)
+	@JoinTable(name = "tb_product_category", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id")) //define a chave estrangeira da outra categoria (no caso, Category)
 	private Set<Category> categories = new HashSet<>(); //Set é um conjunto, para o mesmo produto nao ter categorias repetidas
 
 	//construtores - nao coloco COLECAO no construtor pois ja esta instanciada acima
