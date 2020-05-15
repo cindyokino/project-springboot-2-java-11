@@ -2,6 +2,8 @@ package com.springboot.course.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -31,6 +34,9 @@ public class Order implements Serializable {
 	@ManyToOne //varias orders podem ter um mesmo cliente (ver diagrama)-RELACAO ORDER e USER
 	@JoinColumn(name = "client_id")
 	private User client; //ASSOCIACOES: uma Order tem um User
+	
+	@OneToMany(mappedBy = "id.order") //pois o OrderItem tem o id, e o id tem o order
+	private Set<OrderItem> items = new HashSet<>();
 	
 	public Order() {		
 	}
@@ -76,6 +82,10 @@ public class Order implements Serializable {
 	public void setClient(User client) {
 		this.client = client;
 	}
+	
+	public Set<OrderItem> getItems() {
+		return items;
+	}
 
 	@Override
 	public int hashCode() {
@@ -100,8 +110,5 @@ public class Order implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}
-	
-	
-	
+	}	
 }
