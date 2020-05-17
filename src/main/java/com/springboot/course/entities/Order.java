@@ -35,7 +35,7 @@ public class Order implements Serializable {
 	@JoinColumn(name = "client_id")
 	private User client; //ASSOCIACOES: uma Order tem um User
 	
-	@OneToMany(mappedBy = "id.order") //pois o OrderItem tem o id, e o id tem o order
+	@OneToMany(mappedBy = "id.order") //pois o OrderItem tem o id, e o id tem o order (no OrderItemPK)
 	private Set<OrderItem> items = new HashSet<>();
 	
 	public Order() {		
