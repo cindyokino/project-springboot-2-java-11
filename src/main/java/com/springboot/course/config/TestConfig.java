@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Profile;
 import com.springboot.course.entities.Category;
 import com.springboot.course.entities.Order;
 import com.springboot.course.entities.OrderItem;
+import com.springboot.course.entities.Payment;
 import com.springboot.course.entities.Product;
 import com.springboot.course.entities.User;
 import com.springboot.course.entities.enums.OrderStatus;
@@ -87,5 +88,9 @@ public class TestConfig implements CommandLineRunner { //CommandLineRunner imple
 		//salvar objetos no banco de dados
 		orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
 		
+		Payment pay1 = new Payment(null, Instant.parse("2019-06-20T21:53:07Z"), o1);
+		o1.setPayment(pay1); //associacao de mao dupla em memoria, associei o pedido 1 com o pagamento 1
+		
+		orderRepository.save(o1); //salvar novamente o pedido, o JPA vai salvar
 	}
 }
